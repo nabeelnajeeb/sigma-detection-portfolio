@@ -1,0 +1,5 @@
+venv/
+data/EVTX-ATTACK-SAMPLES/
+data/sigma-official/
+chainsaw/
+__pycache__/

@@ -1,0 +1,1 @@
+(process.executable.caseless:(*\\whoami.exe OR *\\net.exe OR *\\net1.exe)) AND ((process.parent.executable.caseless:(*\\osk.exe OR *\\EfsPotato.exe)) OR user.name:*APPPOOL*)

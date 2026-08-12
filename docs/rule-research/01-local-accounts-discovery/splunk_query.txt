@@ -1,0 +1,1 @@
+Image IN ("*\\whoami.exe", "*\\net.exe", "*\\net1.exe") ParentImage IN ("*\\osk.exe", "*\\EfsPotato.exe") OR User="*APPPOOL*"
