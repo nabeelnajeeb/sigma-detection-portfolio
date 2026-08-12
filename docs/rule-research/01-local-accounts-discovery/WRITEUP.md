@@ -1,5 +1,3 @@
-cd ~/projects/sigma-detection-portfolio
-cat > docs/rule-research/01-local-accounts-discovery/WRITEUP.md << 'EOF'
 # Technique 1: Local Accounts Discovery (T1033 / T1087.001)
 
 **Tactic:** Discovery
