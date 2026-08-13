@@ -1,0 +1,1 @@
+Image="*\\sdbinst.exe" TargetObject IN ("*\\AppCompatFlags\\Custom\\osk.exe\\*", "*\\AppCompatFlags\\Custom\\Utilman.exe\\*", "*\\AppCompatFlags\\Custom\\sethc.exe\\*", "*\\AppCompatFlags\\Custom\\Narrator.exe\\*", "*\\AppCompatFlags\\Custom\\Magnify.exe\\*", "*\\AppCompatFlags\\Custom\\DisplaySwitch.exe\\*")

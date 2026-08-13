@@ -1,0 +1,28 @@
+title: Shim Database Persistence Targeting Accessibility Tool Binaries
+id: 89b93b4a-e3c9-4fb5-b1e2-25a94c61f440
+status: experimental
+description: Detects sdbinst.exe installing a shim database that targets a known accessibility tool binary. These binaries are launchable pre-authentication from the Windows logon screen with SYSTEM privileges, making them a well-documented persistence and privilege escalation target.
+author: Nabeel Najeeb
+date: 2026-08-13
+logsource:
+    category: registry_set
+    product: windows
+detection:
+    selection_image:
+        Image|endswith: '\sdbinst.exe'
+    selection_target:
+        TargetObject|contains:
+            - '\AppCompatFlags\Custom\osk.exe\'
+            - '\AppCompatFlags\Custom\Utilman.exe\'
+            - '\AppCompatFlags\Custom\sethc.exe\'
+            - '\AppCompatFlags\Custom\Narrator.exe\'
+            - '\AppCompatFlags\Custom\Magnify.exe\'
+            - '\AppCompatFlags\Custom\DisplaySwitch.exe\'
+    condition: selection_image and selection_target
+falsepositives:
+    - Legitimate compatibility shim deployed by IT for one of these binaries (rare, but plausible in some environments)
+level: high
+tags:
+    - attack.persistence
+    - attack.privilege-escalation
+    - attack.t1546.011

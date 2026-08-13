@@ -1,0 +1,1 @@
+process.executable.caseless:*\\sdbinst.exe AND (registry.path:(*\\AppCompatFlags\\Custom\\osk.exe\\* OR *\\AppCompatFlags\\Custom\\Utilman.exe\\* OR *\\AppCompatFlags\\Custom\\sethc.exe\\* OR *\\AppCompatFlags\\Custom\\Narrator.exe\\* OR *\\AppCompatFlags\\Custom\\Magnify.exe\\* OR *\\AppCompatFlags\\Custom\\DisplaySwitch.exe\\*))
