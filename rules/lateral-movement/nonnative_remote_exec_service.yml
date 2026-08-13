@@ -1,0 +1,24 @@
+title: Non-Native Remote Execution Service Artifact Execution
+id: 78532907-ef9e-4c7c-804d-d5ed788d27a7
+status: experimental
+description: Detects execution of PSEXESVC.exe, PAExec.exe, or RemComSvc.exe — service binaries dropped only when a PsExec-style remote execution tool (including CrackMapExec's smbexec module) is used against a machine via SMB. None of these binaries exist on a stock Windows installation.
+author: Nabeel Najeeb
+date: 2026-08-13
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        Image|endswith:
+            - '\PSEXESVC.exe'
+            - '\PAExec.exe'
+            - '\RemComSvc.exe'
+    condition: selection
+falsepositives:
+    - None expected; these binaries have no legitimate presence on an unmodified Windows system
+level: high
+tags:
+    - attack.credential-access
+    - attack.lateral-movement
+    - attack.t1003.001
+    - attack.t1021.002

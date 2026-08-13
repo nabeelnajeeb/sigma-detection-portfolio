@@ -1,0 +1,1 @@
+process.executable.caseless:(*\\PSEXESVC.exe OR *\\PAExec.exe OR *\\RemComSvc.exe)
