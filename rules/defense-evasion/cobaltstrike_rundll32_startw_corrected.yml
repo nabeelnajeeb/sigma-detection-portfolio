@@ -1,0 +1,31 @@
+title: CobaltStrike Load by Rundll32 (Corrected Grouping)
+id: 5a1401ed-7c29-4b94-a32d-4f6f26a087f8
+status: experimental
+description: |
+  Detects rundll32.exe loading a DLL via the StartW exported function, Cobalt Strike's
+  documented rundll32-based execution method. This is a corrected version of SigmaHQ's
+  proc_creation_win_hktl_cobaltstrike_load_by_rundll32.yml — the original rule's
+  list-based OR selection block causes its Image/OriginalFileName conditions to be
+  evaluated independently of the .dll/StartW narrowing clause (confirmed via both
+  Chainsaw and pySigma's Splunk conversion), making the StartW condition functionally
+  bypassable by any ordinary rundll32.exe execution.
+author: Nabeel Najeeb
+date: 2026-08-13
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_rundll:
+        Image|endswith: '\rundll32.exe'
+    selection_startw:
+        CommandLine|contains: '.dll'
+        CommandLine|endswith:
+            - ' StartW'
+            - ',StartW'
+    condition: selection_rundll and selection_startw
+falsepositives:
+    - Unknown; StartW has no known legitimate use outside Cobalt Strike's documented execution method
+level: high
+tags:
+    - attack.stealth
+    - attack.t1218.011
