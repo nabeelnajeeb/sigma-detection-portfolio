@@ -1,0 +1,19 @@
+title: UACMe Hacktool Execution via Product Metadata
+id: 8f76503e-9cef-4fe9-a37e-2708183de2e9
+status: experimental
+description: Detects execution of any binary carrying UACMe's embedded Product version-info string, regardless of filename, file path, or file hash. UACMe is a public UAC-bypass tool with no legitimate business use; renaming, moving, or independently recompiling the binary changes its filename/path/hash but not this embedded metadata.
+author: Nabeel Najeeb
+date: 2026-08-13
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection:
+        Product: 'UACMe'
+    condition: selection
+falsepositives:
+    - None expected; UACMe has no legitimate production use
+level: high
+tags:
+    - attack.privilege-escalation
+    - attack.t1548.002
