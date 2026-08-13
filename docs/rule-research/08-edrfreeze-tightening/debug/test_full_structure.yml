@@ -1,0 +1,22 @@
+title: Debug Test - full two block structure
+id: 33333333-3333-3333-3333-333333333333
+status: experimental
+description: Debug test rule
+author: Nabeel Najeeb
+date: 2026-08-13
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        Image|contains:
+            - '\EDR-Freeze'
+            - '\EDRFreeze'
+        Image|endswith: '.exe'
+    selection_imphash:
+        Hashes|contains:
+            - 'IMPHASH=1195F7935954A2CD09157390C33F8E8C'
+    condition: 1 of selection_*
+falsepositives:
+    - Unlikely
+level: high

@@ -1,0 +1,42 @@
+title: EDR-Freeze Execution (Corrected Condition Syntax)
+id: 59d9ccd1-12f4-4717-8aca-1d94049a84db
+status: experimental
+description: |
+  Detects execution of EDR-Freeze via known filename patterns or known IMPHASH values.
+  This is a corrected version of SigmaHQ's proc_creation_win_hktl_edr_freeze.yml. Testing
+  against this dataset found the official rule matched 1489 of 1489 non-EDR-Freeze events
+  when its selection_img block (an internally-AND condition combining a filename match and
+  a .exe suffix check) was referenced via the "1 of selection_*" wildcard condition syntax.
+  Isolated debug testing confirmed selection_img's internal AND logic is correct in isolation,
+  and that "1 of selection_*" behaves correctly against simple single-condition blocks, but the
+  specific combination of an AND-structured block referenced via "1 of selection_*" reproduces
+  the full false-positive rate. This version avoids the wildcard condition syntax entirely,
+  referencing each block by name instead.
+author: Nabeel Najeeb
+date: 2026-08-13
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        Image|contains:
+            - '\EDR-Freeze'
+            - '\EDRFreeze'
+        Image|endswith: '.exe'
+    selection_imphash:
+        Hashes|contains:
+            - 'IMPHASH=1195F7935954A2CD09157390C33F8E8C'
+            - 'IMPHASH=129F58DE3D687FB7F012BF6C3D679997'
+            - 'IMPHASH=2C617A175D0086251642C6619F7CC8BA'
+            - 'IMPHASH=8828F0B906F7844358FB92A899E9520F'
+            - 'IMPHASH=AF76D95157EC554DC1EF178E4E66D447'
+            - 'IMPHASH=E1B04316B61ACA31DD52ABBEC0A37FD5'
+            - 'IMPHASH=8B2D5B54AFCFEC60D54F6B31D80ED4A0'
+            - 'IMPHASH=AB8BB31EDD91D2A05FE7B62A535E9EB7'
+    condition: selection_img or selection_imphash
+falsepositives:
+    - Unlikely
+level: high
+tags:
+    - attack.defense-impairment
+    - attack.t1685

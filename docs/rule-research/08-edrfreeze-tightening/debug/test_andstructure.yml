@@ -1,0 +1,19 @@
+title: Debug Test - list plus single value AND structure
+id: 22222222-2222-2222-2222-222222222222
+status: experimental
+description: Debug test rule
+author: Nabeel Najeeb
+date: 2026-08-13
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_a:
+        Image|contains:
+            - 'THIS_STRING_SHOULD_NEVER_EXIST_ANYWHERE'
+            - 'THIS_ONE_ALSO_NEVER_EXISTS'
+        Image|endswith: '.exe'
+    condition: selection_a
+falsepositives:
+    - Unlikely
+level: high

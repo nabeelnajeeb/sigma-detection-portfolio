@@ -1,0 +1,19 @@
+title: Debug Test - selection_img alone via 1 of
+id: 44444444-4444-4444-4444-444444444444
+status: experimental
+description: Debug test rule
+author: Nabeel Najeeb
+date: 2026-08-13
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection_img:
+        Image|contains:
+            - '\EDR-Freeze'
+            - '\EDRFreeze'
+        Image|endswith: '.exe'
+    condition: 1 of selection_*
+falsepositives:
+    - Unlikely
+level: high
