@@ -52,7 +52,7 @@ Splunk conversion and pySigma internal parsing both confirm `selection_cli`'s AN
 
 ## Comparison to the official SigmaHQ rule
 
-This is the second confirmed instance (alongside Technique 5) of the same underlying class of issue, an ungrouped OR/AND boundary at the top level of a multi-block Sigma rule causing a narrowing condition to become unintentionally optional. Technique 5's instance affected a single-branch OR; this instance affects both branches of a two-branch OR independently. Taken together with Techniques 4 and 6 (a suspected engine-level `User`-clause misfire, and a confirmed engine-level AND-enforcement failure respectively), four of the seven official rules examined in this project showed a meaningful gap between stated detection intent and actual matching behaviour in this toolchain, a pattern worth noticing, in my opinion.
+This is the second confirmed instance (alongside Technique 5) of the same underlying class of issue, an ungrouped OR/AND boundary at the top level of a multi-block Sigma rule causing a narrowing condition to become unintentionally optional. Technique 5's instance affected a single-branch OR; this instance affects both branches of a two-branch OR independently. 
 
 ## Known limitations
 
