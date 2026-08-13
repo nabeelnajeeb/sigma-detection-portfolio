@@ -25,7 +25,15 @@ Converted to Splunk SPL and Elastic/Lucene syntax (see `splunk_query.txt` / `ela
 
 ## Comparison to the official SigmaHQ rule
 
-[paste the comparison section above here]
+The official rule (`proc_creation_win_hktl_uacme.yml`) is meaningfully more sophisticated than my single-field rule, using four independent signal groups (`condition: 1 of selection_*`, i.e. any one triggers a match): PE metadata (`Product`, `Company`, `Description`, `OriginalFileName`), filename (`Akagi.exe`/`Akagi64.exe` specifically), and **Import Hash (IMPHASH)** — not the full file hash.
+
+This last point corrects an assumption in my own reasoning. I dismissed file hashing as an unreliable signal because independent recompilation changes the full file hash (confirmed directly in this dataset — cards sharing identical `Product`/`Company` had different `SHA1`/`MD5`/`SHA256` values). IMPHASH is a different kind of hash: it fingerprints only the table of external Windows API functions a binary imports, which tends to stay stable across recompiles of the same source, even when the full file hash changes. The official rule can therefore safely use hashing as a signal, in a way the full-hash approach I initially considered could not.
+
+The official rule's `Company` list (`REvol Corp`, `APT 92`, `UG North`, `Hazardous Environments`, `CD Project Rekt`) also reveals something my rule doesn't capture: `Company` appears to vary because different versions/forks of UACMe (or different threat actors' rebuilds) ship different Company strings — my dataset only surfaced 3 of these 5 known values, and I initially treated `Company` as too unreliable to key on because of that variance. The official rule instead treats the *enumerated set* of known Company values as a usable signal, alongside — not instead of — the `Product` field.
+
+My rule is narrower by design: a single condition (`Product: UACMe`) that would have caught 22 of this dataset's 23 UACMe-related events (missing only card 19, a different tool entirely — `TurlaDriverLoader` — that the official rule also doesn't cover, since it's out of scope for this specific rule). The official rule's four-signal OR structure is more resilient against an attacker who successfully strips or edits the PE metadata — my rule would go completely blind if `Product` were altered, whereas the official rule would likely still catch the same binary via IMPHASH or filename.
+
+**Honest limitation:** my rule has a single point of failure. If someone recompiles UACMe with the `Product` string deliberately blanked or changed, my rule catches nothing — a real gap the official rule's layered approach specifically defends against.
 
 ## Known limitations
 
