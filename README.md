@@ -36,12 +36,16 @@ While validating official SigmaHQ rules as locators, four of the eight rules exa
 | 8 (bonus) | EDR-Freeze Execution (T1685) | Defense Evasion | [rule](rules/defense-evasion/edrfreeze_corrected_condition.yml) | [write-up](docs/rule-research/08-edrfreeze-tightening/WRITEUP.md) |
 
 ## Repository structure
+```
+
 rules/ Original Sigma detection rules, organized by tactic
 docs/rule-research/ Per-technique research: raw event JSON, SIEM-converted
 queries, and a full write-up (investigation, reasoning,
 test results, comparison to the official rule, limitations)
 scripts/ Reusable helper scripts (e.g. show_cards.py, a condensed
 viewer for Chainsaw's JSON output)
+
+```
 Raw log data (`data/EVTX-ATTACK-SAMPLES`, `data/sigma-official`) and the Chainsaw binary itself are excluded via `.gitignore`, as third-party tooling and datasets rather than original work.
 
 ## Methodology notes and honesty standards
