@@ -14,11 +14,11 @@ The official rule's two selection blocks each require two conditions on the same
 2. Loading the rule directly via pySigma's Python library and inspecting its internal parsed representation showed `item_linking=<class 'sigma.conditions.ConditionAND'>` for both selection blocks, pySigma's own reference parser explicitly confirming AND-combination.
 3. Manual field-by-field testing against all 45 real events confirmed the practical effect: 45/45 satisfy one condition, 0/45 satisfy the other, yet all 45 were matched.
 
-This points to the disagreement being localized specifically to how Chainsaw evaluated this rule against this data, not to any ambiguity in the rule's authored logic or in how an independent, purpose-built Sigma parser interprets it. I want to be precise about the limit of this claim: I have not traced the specific internal cause within Chainsaw's own matching code, only confirmed a reproducible disagreement between Chainsaw's output and two independent reference implementations of the same rule.
+This points to the disagreement being localized specifically to how Chainsaw evaluated this rule against this data, not to any ambiguity in the rule's authored logic or in how an independent, purpose-built Sigma parser interprets it. To be clear, I have not traced the specific internal cause within Chainsaw's own matching code, only confirmed a reproducible disagreement between Chainsaw's output and two independent reference implementations of the same rule.
 
 ## My rule
 
-`rules/persistence/samtheadmin_computername_corrected.yml` (logic identical to the official rule, included to document re-validation, not as a new detection)
+`rules/persistence/samtheadmin_computername_corrected.yml` (logic identical to the official rule)
 
 Since the rule's authored logic is correct and its intent is sound, no new detection logic was needed. The corrective action here was re-validation through an independent tool rather than a rewrite.
 
@@ -28,7 +28,7 @@ Splunk and pySigma-parser validation both confirm the rule's logic is structural
 
 ## Comparison to the official SigmaHQ rule
 
-Not applicable in the usual sense. This entry documents an engine-level evaluation discrepancy rather than a rule design comparison. The official rule's logic is sound as written and as confirmed by two independent implementations.
+Not applicable in the usual sense. The official rule's logic is sound as written and as confirmed by two independent implementations.
 
 ## Known limitations
 
