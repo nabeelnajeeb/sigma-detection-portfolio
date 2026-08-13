@@ -55,7 +55,6 @@ A few deliberate practices were applied consistently across all eight write-ups,
 - **Reasoned false positives, not measured ones.** All false-positive analysis is based on manual review of the sample dataset, not live production telemetry. Every write-up states this distinction rather than implying a measured false-positive rate.
 - **Extrapolated coverage is labeled as such.** Where a rule's scope was extended beyond what's directly present in the sample dataset (e.g. the full accessibility-tool binary family in Technique 2, or additional PsExec-family tools in Technique 4), this is explicitly separated from empirically validated coverage.
 - **Confirmed-negative results are not overstated as confirmed-positive.** Where a corrected rule produces 0 detections because the sample dataset lacks a genuine positive example (Techniques 5, 7, 8), this is stated directly rather than presented as full validation.
-- **Tooling claims are scoped to what was actually demonstrated.** For example, Splunk and Elastic were used only via `sigma-cli`'s query conversion, to validate rule portability and, in several cases, to diagnose grouping bugs. Neither product was actually installed or run against live data in this project.
 
 ## Tools used
 
